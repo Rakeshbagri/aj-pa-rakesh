@@ -1,0 +1,62 @@
+#call js in footer 
+
+{{ 'ajaxify.min.js' | asset_url | script_tag }}
+
+
+---------------------------------------------------------------------------------------------
+setup blog page 
+
+{% paginate blog.articles by 1 %}
+
+<div class="page-container blog-right" itemscope itemtype="http://schema.org/Article">
+<div class="EndlessClick">
+
+{% for article in blog.articles %}
+  
+<div class="grid__item medium-up--one-half">
+<h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+<div class="rte rte--indented-images">
+      {% if article.image %}
+          <a href="{{ article.url }}">
+            {{ article | img_url: 'master' | img_tag: article.title }}
+          </a>
+      {% endif %}
+
+      {% if article.excerpt.size > 0 %}
+        {{ article.excerpt }}
+      {% else %}
+        <p>{{ article.content | truncatewords: 100 }}</p>
+      {% endif %}
+</div>
+</div>
+{% endfor %}
+     
+{% if paginate.pages > 1 %}
+          {% if paginate.next %}
+          <div class="pagination">
+            <a href="{{ paginate.next.url }}">Loading More</a>
+          </div>
+        {% endif %}
+          
+  {% endif %}
+</div>
+</div>
+{% endpaginate %}
+
+
+change this class "EndlessScroll" for scroll and on click
+scroll:- EndlessScroll
+onclick :- EndlessClick
+
+
+use this script end of file
+
+$(document).ready(function(){
+  ajaxify();
+});
+
+
+
+Thanks
+
+by: rakesh saini
