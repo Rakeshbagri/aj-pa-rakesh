@@ -1,0 +1,45 @@
+#call js in footer 
+
+{{ 'ajaxify.min.js' | asset_url | script_tag }}
+
+Setup your collection template, for example:
+
+{% paginate collection.products by 3 %}
+  <div id="MainContent" class="container">
+    <div class="row">
+
+      <div class="EndlessScroll">
+
+        {% for product in collection.products %}
+          {% include 'product-grid-item' %}
+        {% endfor %}
+
+        {% if paginate.next %}
+          <div class="pagination">
+            <a href="{{ paginate.next.url }}">Loading More</a>
+          </div>
+        {% endif %}
+
+      </div>
+
+    </div>
+  </div>
+{% endpaginate %}
+
+
+change this class "EndlessScroll" for scroll and on click
+scroll:- EndlessScroll
+onclick :- EndlessClick
+
+
+use this script end of file
+
+$(document).ready(function(){
+  ajaxify();
+});
+
+
+
+Thanks
+
+by: rakesh saini
